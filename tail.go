@@ -78,6 +78,7 @@ type Tail struct {
 	Filename string
 	Lines    chan *Line
 	Config
+	Offset int64
 
 	file   *os.File
 	reader *bufio.Reader
@@ -269,6 +270,7 @@ func (tail *Tail) tailFileSync() {
 				tail.Kill(err)
 				return
 			}
+			tail.Offset = offset
 		}
 
 		line, err := tail.readLine()
